@@ -7,6 +7,9 @@ Rectangle {
     // color: "#aa000000"
     color: "#00ffffff"
 
+    property string svg: "wave"
+    property string authState: "state"
+
     GaussianBlur {
         anchors.fill: parent
         source: bgSrc
@@ -26,7 +29,8 @@ Rectangle {
         spacing: 12
         Image {
             id: loginstatusicon
-            source: "../assets/icons/wave.svg"
+            // source: "../assets/icons/wave.svg"
+            source: "../assets/icons/" + svg + ".svg"
             width: 45
             height: 45
             anchors.horizontalCenter: parent.horizontalCenter
@@ -34,7 +38,8 @@ Rectangle {
 
         Text {
             id: loginstatus
-            text: "status"
+            // text: "status"
+            text: authState
             color: "#ffffff"
             font.pixelSize: 16
         }

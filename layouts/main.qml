@@ -107,6 +107,20 @@ ApplicationWindow {
             y: 50
         }
 
+        Rectangle {
+            width: 200
+            height: 100
+            color: "#aa000000"
+            y: 50 + 15
+            x: parent.width - width - 15
+            radius: 12
+
+            Component.onCompleted: {
+                var sessions = backend.get_sessions(0)
+                console.log(sessions)
+            }
+        }
+
         Image {
             id: panelBackground
             source: "../assets/wallpaper.jpg"
@@ -221,7 +235,18 @@ ApplicationWindow {
                             }
 
                             onClicked: {
-                                backend.auth_user(username.text, password.text);
+                                status.item.svg = "loading"
+                                status.item.authState = "Authenticating..."
+                                status.opacity = 1
+                                status.scale = 1.01
+                                result = backend.auth_user(username.text, password.text);
+                                if (result === true) {
+                                    status.item.svg = "wave";
+                                    status.item.authState = "Hello, " + username.text + "!";
+                                } else {
+                                    status.item.svg = "x";
+                                    status.item.authState = "Incorrect Username or Password!"
+                                }
                             }
                         }
                     }
@@ -288,5 +313,15 @@ ApplicationWindow {
         anchors.fill: parent
         id: status
         source: "login-status.qml"
+
+
+        onLoaded: {
+            if (item) {
+                item.svg = "wave"
+                item.authState = "state"
+                opacity = 0
+                scale = 1
+            }
+        }
     }  
 }

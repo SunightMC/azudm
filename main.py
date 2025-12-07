@@ -21,29 +21,29 @@ class Backend(QObject): # wth do I call this??
 		# just set initilise the selected session variable for use
 		self.selected_session = None
 
-	# @pyqtSlot(result='QVariantMap')
-	# def get_sessions(self):
-	# 	sessions = {}
+	@pyqtSlot(result='QVariantMap')
+	def get_sessions(self):
+		sessions = {}
 
-	# 	# all this nesting is probably bad xd, my bad gng...
-	# 	for directory in session_dirs:
-	# 		if os.path.exists(directory):
-	# 			for file in os.listdir(directory):
-	# 				if file.endswith(".desktop"):
-	# 					with open(os.path.join(directory, file), "r") as f:
-	# 						name, cmd = None, None
-	# 						for line in f:
-	# 							if line.startswith("Name="):
-	# 								name = line.strip().split("=", 1)[1]
-	# 							elif line.startswith("Exec="):
-	# 								cmd = line.strip().split("=", 1)[1]
-	# 							if name and cmd:
-	# 								break
+		# all this nesting is probably bad xd, my bad gng...
+		for directory in session_dirs:
+			if os.path.exists(directory):
+				for file in os.listdir(directory):
+					if file.endswith(".desktop"):
+						with open(os.path.join(directory, file), "r") as f:
+							name, cmd = None, None
+							for line in f:
+								if line.startswith("Name="):
+									name = line.strip().split("=", 1)[1]
+								elif line.startswith("Exec="):
+									cmd = line.strip().split("=", 1)[1]
+								if name and cmd:
+									break
 
-	# 					if name and cmd:
-	# 						sessions[name] = cmd
+						if name and cmd:
+							sessions[name] = cmd
 
-	# 	return sessions		
+		return sessions		
 	
 	@pyqtSlot(str)
 	def select_session(self, name):
@@ -62,7 +62,7 @@ backend = Backend()
 engine.rootContext().setContextProperty("backend", backend)
 engine.load('layouts/main.qml')
 
-# print(Backend.auth_user('mt', 'root'))
+print(Backend.get_sessions(0))
 root = engine.rootObjects()[0]
 root.showFullScreen()
 
