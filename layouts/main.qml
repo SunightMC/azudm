@@ -9,243 +9,284 @@ ApplicationWindow {
     title: "AzuDM Display Manager AZDM"
     font.family: "Inter"
 
-    Image {
-        id: background
-        anchors.fill: parent
-        source: "../assets/wallpaper.jpg"
-        fillMode: Image.PreserveAspectCrop
-    }
-
-    Image {
-        id: statusbarBackground
-        source: "../assets/wallpaper.jpg"
-        verticalAlignment: Image.AlignTop
-        fillMode: Image.PreserveAspectCrop
+    Item {
+        id: root
         width: parent.width
-        height: statusbar.height
-        clip: true
-    }
+        height: parent.height
+        Image {
+            id: background
+            anchors.fill: parent
+            source: "../assets/wallpaper.jpg"
+            fillMode: Image.PreserveAspectCrop
+        }
 
-    GaussianBlur {
-        source: statusbarBackground
-        samples: 128
-        radius: 60
-        transparentBorder: false
-        cached: true
-        width: parent.width
-        height: statusbar.height
-    }
-
-    Rectangle {
-        id: statusbar
-        color: "#60000000"
-        width: parent.width
-        height: 50
-
-        Row {
+        Image {
+            id: statusbarBackground
+            source: "../assets/wallpaper.jpg"
+            verticalAlignment: Image.AlignTop
+            fillMode: Image.PreserveAspectCrop
             width: parent.width
-            height: parent.height
-            // leftPadding: 20
-            // rightPadding: 20
+            height: statusbar.height
+            clip: true
+        }
 
-            Text { // greeting based on system time
-                text: "Good Afternoon"
-                color: "#FFFFFF"
-                anchors.verticalCenter: parent.verticalCenter
-                x: 20
-                font.pixelSize: 16
-            }
+        GaussianBlur {
+            source: statusbarBackground
+            samples: 128
+            radius: 60
+            transparentBorder: false
+            cached: true
+            width: parent.width
+            height: statusbar.height
+        }
 
-            Text { // distro name from os-release
-                text: "AzuOS"
-                color: "#FFFFFF"
-                font.pixelSize: 16
-                anchors.centerIn: parent
-            }
+        Rectangle {
+            id: statusbar
+            color: "#60000000"
+            width: parent.width
+            height: 50
 
-            Row { 
-                anchors.verticalCenter: parent.verticalCenter
-                x: parent.width - childrenRect.width - 20
-                spacing: 8
-                Button {
-                    width: 150
-                    height: 30
+            Row {
+                width: parent.width
+                height: parent.height
+                // leftPadding: 20
+                // rightPadding: 20
+
+                Text { // greeting based on system time
+                    text: "Good Afternoon"
+                    color: "#FFFFFF"
                     anchors.verticalCenter: parent.verticalCenter
-                    background: Rectangle {
-                        color: "#00000000"
-                        radius: 7
-                        border.width: 1
-                        border.color: "#50ffffff"
-                    }
-         
-                    Text {
-                        text: "Session1"
-                        color: "#ffffff"
-                        anchors.centerIn: parent
-                        font.pixelSize: 13
-                    }
+                    x: 20
+                    font.pixelSize: 16
                 }
 
-                Text { // time
-                    text: "25:00" // -after midnight ( pjsk reference )
+                Text { // distro name from os-release
+                    text: "AzuOS"
                     color: "#FFFFFF"
                     font.pixelSize: 16
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-        }
-    }   
-
-    Rectangle {
-        color: "#33FFFFFF"
-        width: parent.width
-        height: 1
-        y: 50
-    }
-
-    Image {
-        id: panelBackground
-        source: "../assets/wallpaper.jpg"
-        // verticalAlignment: Image.AlignCenter
-        // horizontalAlignment: Image.AlignLeft
-        sourceSize.width: background.width
-        sourceSize.height: background.height
-        sourceClipRect: Qt.rect(panel.x + 24, panel.y, panel.width - 24, panel.height)
-        fillMode: Image.PreserveAspectCrop
-        width: panel.width
-        height: panel.height
-        clip: true
-        visible: false
-    }
-
-    GaussianBlur {
-        source: panelBackground
-        samples: 128
-        radius: 60
-        transparentBorder: false
-        cached: true
-        width: panel.width - 24
-        height: panel.height
-        x: 0
-        y: (parent.height / 2 ) - 105
-        // opacity: 0
-    }
-
-    Rectangle {
-        id: panel
-        color: "#AA000000"
-        x: -24
-        width: parent.width * ( 33/100 ) + 24
-        height: 210
-        y: (parent.height / 2 ) - 105
-        radius: 24
-        border.width: 1
-        border.color: "#33FFFFFF"
-
-        Column {
-            width: parent.width - 24 - ( padding  )
-            x: 24
-            padding: 22
-            spacing: 10
-            Text { // greeting based on system time
-                text: "Login"
-                color: "#FFFFFF"
-                font.pixelSize: 24
-            }
-
-            TextField {
-                id: username
-                width: parent.width - parent.padding
-                height: 32
-                placeholderText: "Username"
-                padding: 5
-                leftPadding: 12
-                color: "#ffffff"
-                // anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 13
-                background: Rectangle {
-                    color: "#00ffffff"
-                    radius: 20
-                    border.width: 1
-                    border.color: "#50ffffff"
-                    height: 32
-                }
-            }
-            TextField {
-                id: password
-                width: parent.width - parent.padding
-                height: 32
-                placeholderText: "Password"
-                padding: 5
-                leftPadding: 12
-                color: "#ffffff"
-                // anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 13
-                background: Rectangle {
-                    color: "#00ffffff"
-                    radius: 20
-                    border.width: 1
-                    border.color: "#50ffffff"
-                    height: 32
-                }
-            }
-            Button {
-                width: parent.width - parent.padding
-                height: 32
-                background: Rectangle {
-                    color: "#00ffffff"
-                    border.color: "#50ffffff"
-                    border.width: 1
-                    radius: 24
-                }
-
-                Text {
-                    text: "Login"
-                    color: "#ffffff"
-                    font.pixelSize: 13
                     anchors.centerIn: parent
                 }
+
+                Row { 
+                    anchors.verticalCenter: parent.verticalCenter
+                    x: parent.width - childrenRect.width - 20
+                    spacing: 8
+                    Button {
+                        width: 150
+                        height: 30
+                        anchors.verticalCenter: parent.verticalCenter
+                        background: Rectangle {
+                            color: "#00000000"
+                            radius: 7
+                            border.width: 1
+                            border.color: "#50ffffff"
+                        }
+             
+                        Text {
+                            text: "Session1"
+                            color: "#ffffff"
+                            anchors.centerIn: parent
+                            font.pixelSize: 13
+                        }
+                    }
+
+                    Text { // time
+                        text: "25:00" // -after midnight ( pjsk reference )
+                        color: "#FFFFFF"
+                        font.pixelSize: 16
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                }
             }
+        }   
+
+        Rectangle {
+            color: "#33FFFFFF"
+            width: parent.width
+            height: 1
+            y: 50
         }
-    }  
 
-    // Item {
-    //     Text {
-    //         anchors.centerIn: parent
-    //         text: "Hello World"
-    //         font.pixelSize: 24
-    //     }        
-    // }
-    Rectangle {
-        anchors.centerIn: parent
-        width: parent.width * ( 33/100 ) + 24
-        height: parent.height * ( 85/100 )
-        color: "#00000000"
+        Image {
+            id: panelBackground
+            source: "../assets/wallpaper.jpg"
+            // verticalAlignment: Image.AlignCenter
+            // horizontalAlignment: Image.AlignLeft
+            sourceSize.width: background.width
+            sourceSize.height: background.height
+            sourceClipRect: Qt.rect(panel.x + 24, panel.y, panel.width - 24, panel.height)
+            fillMode: Image.PreserveAspectCrop
+            width: panel.width
+            height: panel.height
+            clip: true
+            visible: false
+        }
 
-        Column {
+        GaussianBlur {
+            source: panelBackground
+            samples: 128
+            radius: 60
+            transparentBorder: false
+            cached: true
+            width: panel.width - 24
+            height: panel.height
+            x: 0
+            y: (parent.height / 2 ) - 105
+            // opacity: 0
+        }
+
+        Rectangle {
+            id: panel
+            color: "#AA000000"
+            x: -24
+            width: parent.width * ( 33/100 ) + 24
+            height: 210
+            y: (parent.height / 2 ) - 105
+            radius: 24
+            border.width: 1
+            border.color: "#33FFFFFF"
+
+            Column {
+                width: parent.width - 24 - ( padding  )
+                x: 24
+                padding: 22
+                spacing: 10
+                Text { // greeting based on system time
+                    text: "Login"
+                    color: "#FFFFFF"
+                    font.pixelSize: 24
+                }
+
+                TextField {
+                    id: username
+                    width: parent.width - parent.padding
+                    height: 32
+                    placeholderText: "Username"
+                    padding: 5
+                    leftPadding: 12
+                    color: "#ffffff"
+                    // anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 13
+                    background: Rectangle {
+                        color: "#00ffffff"
+                        radius: 20
+                        border.width: 1
+                        border.color: "#50ffffff"
+                        height: 32
+                    }
+                }
+                TextField {
+                    id: password
+                    width: parent.width - parent.padding
+                    height: 32
+                    placeholderText: "Password"
+                    padding: 5
+                    leftPadding: 12
+                    color: "#ffffff"
+                    // anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 13
+                    background: Rectangle {
+                        color: "#00ffffff"
+                        radius: 20
+                        border.width: 1
+                        border.color: "#50ffffff"
+                        height: 32
+                    }
+                }
+                Button {
+                    width: parent.width - parent.padding
+                    height: 32
+
+                    background: Rectangle {
+                        color: "#00ffffff"
+                        border.color: "#50ffffff"
+                        border.width: 1
+                        radius: 24
+
+                        
+
+                        MouseArea {
+                            width: parent.width
+                            height: parent.height
+                            hoverEnabled: true
+
+                            onEntered: {
+                                parent.color = "#10ffffff"
+                                parent.scale = 1.01
+                            }
+
+                            onExited: {
+                                parent.color = "#00ffffff"
+                                parent.scale = 1
+                            }
+
+                            onClicked: {
+                                backend.auth_user(username.text, password.text);
+                            }
+                        }
+                    }
+
+                    Text {
+                        text: "Login"
+                        color: "#ffffff"
+                        font.pixelSize: 13
+                        anchors.centerIn: parent
+                    }
+                }
+            }
+        }  
+
+        // Item {
+        //     Text {
+        //         anchors.centerIn: parent
+        //         text: "Hello World"
+        //         font.pixelSize: 24
+        //     }        
+        // }
+        Rectangle {
             anchors.centerIn: parent
-            spacing: -10
-            Text {
-                text: "25:00"
-                font.pixelSize: 100
-                font.weight: Font.Medium
-                color: "#ffffff"
-                anchors.horizontalCenter: parent.horizontalCenter
-            }     
+            width: parent.width * ( 33/100 ) + 24
+            height: parent.height * ( 85/100 )
+            color: "#00000000"
 
-            Text {
-                text: "November 27, 2025" // arcaea v6.11 update drop, it was very peak
-                font.pixelSize: 50
-                font.weight: Font.Thin
-                color: "#ffffff"
-                anchors.horizontalCenter: parent.horizontalCenter
-            }     
-        }
+            Column {
+                anchors.centerIn: parent
+                spacing: -10
+                Text {
+                    text: "25:00"
+                    font.pixelSize: 100
+                    font.weight: Font.Medium
+                    color: "#ffffff"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }     
+
+                Text {
+                    text: "November 27, 2025" // arcaea v6.11 update drop, it was very peak
+                    font.pixelSize: 50
+                    font.weight: Font.Thin
+                    color: "#ffffff"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }     
+            }
+        }  
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "#00ffffff"
+        ShaderEffectSource {
+            id: bgSrc
+            anchors.fill: parent
+            sourceItem: root
+            live: true
+            recursive: true
+        }        
+    }
+
+    Loader {
+        opacity: 0
+        anchors.fill: parent
+        id: status
+        source: "login-status.qml"
     }  
-
-        // Loader {
-        //     anchors.fill: parent
-        //     id: status
-        //     source: "login-status.qml"
-        // }  
 }
